@@ -40,7 +40,7 @@ function setInterceptors(instance: AxiosInstance) {
  */
 function createInstance() {
   const instance = axios.create({
-    baseURL: process.env.NEXT_PUBLIC_API_URL,
+    baseURL: import.meta.env.VITE_APP_API_BASE_URL,
   });
   return setInterceptors(instance);
 }
@@ -58,7 +58,14 @@ function createInstance() {
 // Todo: .env 파일에서 환경변수로 api 주소를 가져오고 있지만, 서버 주소가 나오면 env 파일 없이도 사용 가능하게 수정해야 함.
 function createInstanceWithoutAuth() {
   const instance = axios.create({
-    baseURL: process.env.NEXT_PUBLIC_API_URL,
+    baseURL: import.meta.env.VITE_APP_API_BASE_URL,
+  });
+  return instance;
+}
+
+function createAIInstanceWithoutAuth() {
+  const instance = axios.create({
+    baseURL: import.meta.env.VITE_APP_API_AI_BASE_URL,
   });
   return instance;
 }
@@ -74,3 +81,5 @@ export const api = createInstance();
  * @const {AxiosInstance}
  */
 export const apiWithoutAuth = createInstanceWithoutAuth();
+
+export const apiAiWithoutAuth = createAIInstanceWithoutAuth();
